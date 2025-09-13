@@ -3,9 +3,11 @@ from app.routes import router
 
 app = FastAPI(title="Employee Management API")
 
-@app.get("/")
+@app.get("/")   #  homepage, 
 def homepage():
-    return {"message": "FastAPI is running , pls go to /docs for opening Swagger UI "}
+    return {"message": "FastAPI is running , pls go /docs for swagger UI"}
 
 
-app.include_router(router, tags=["employees"])
+
+# include router
+app.include_router(router)

@@ -12,6 +12,10 @@ A FastAPI-based employee management app with JWT authentication & MongoDB storag
 ## Tasks Done
 - All 3 sections Completed (All 7 CRUD APIs completed)
 - All 4 bonuses challenges completed
+  • Implemented pagination for employee listing. 
+  • Added MongoDB index on employee_id. 
+  • Implement schema validation (e.g., using MongoDB JSON Schema). 
+  • Add JWT authentication for protected routes. ( Login and Signup with password hashing as well )
 
 
 ### Prerequisites

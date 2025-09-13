@@ -27,6 +27,7 @@ def get_employees(department: Optional[str] = None):
         e["_id"] = str(e["_id"])  
     return {"count": len(emps), "results": emps}
 
+
 @router.get("/employees/avg-salary")
 def avg_salary():
     res = crud.avg_salary_by_department()
@@ -42,3 +43,30 @@ def search_employees(skill: str):
     for r in results:
         r["_id"] = str(r["_id"])
     return results
+
+
+@router.get("/employees/{employee_id}")
+def get_employee(employee_id: str):
+    emp = crud.get_employee(employee_id)
+    if not emp:
+        raise HTTPException(status_code=404, detail="Not found")
+    emp["_id"] = str(emp["_id"])
+    return emp
+
+
+@router.put("/employees/{employee_id}")
+def update_employee(employee_id: str, emp: UpdateEmployee):
+    update_data = emp.dict(exclude_unset=True)
+    if not update_data:
+        raise HTTPException(status_code=400, detail="Nothing to update")
+    
+    crud.update_employee(employee_id, update_data)
+    return {"updated": True, "employee_id": employee_id}
+
+
+@router.delete("/employees/{employee_id}")
+def delete_employee(employee_id: str):
+    deleted = crud.delete_employee(employee_id)
+    if deleted.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Employee not found")
+    return {"deleted": True}

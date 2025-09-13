@@ -6,6 +6,12 @@ def create_employee(data: dict):
 def get_employee(employee_id: str):
     return employees_collection.find_one({"employee_id": employee_id})
 
+def update_employee(employee_id: str, data: dict):
+    return employees_collection.update_one({"employee_id": employee_id}, {"$set": data})
+
+def delete_employee(employee_id: str):
+    return employees_collection.delete_one({"employee_id": employee_id})
+
 def list_by_department(dept: str):
     return employees_collection.find({"department": dept}).sort("joining_date", -1)
 
@@ -20,6 +26,3 @@ def avg_salary_by_department():
 
 def search_by_skill(skill: str):
     return employees_collection.find({"skills": skill})
-
-
-

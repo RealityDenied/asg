@@ -12,4 +12,14 @@ def list_by_department(dept: str):
 def list_all():
     return employees_collection.find({})
 
+def avg_salary_by_department():
+    pipeline = [
+        {"$group": {"_id": "$department", "avg_salary": {"$avg": "$salary"}}}
+    ]
+    return employees_collection.aggregate(pipeline)
+
+def search_by_skill(skill: str):
+    return employees_collection.find({"skills": skill})
+
+
 

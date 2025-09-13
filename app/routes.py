@@ -27,3 +27,18 @@ def get_employees(department: Optional[str] = None):
         e["_id"] = str(e["_id"])  
     return {"count": len(emps), "results": emps}
 
+@router.get("/employees/avg-salary")
+def avg_salary():
+    res = crud.avg_salary_by_department()
+    data = []
+    for r in res:
+        data.append({"dept": r["_id"], "avg": r["avg_salary"]})
+    return data
+
+
+@router.get("/employees/search")
+def search_employees(skill: str):
+    results = list(crud.search_by_skill(skill))
+    for r in results:
+        r["_id"] = str(r["_id"])
+    return results
